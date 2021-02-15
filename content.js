@@ -8,10 +8,8 @@ else do_good_shit();
 function do_bad_shit() {
     div_ele = document.getElementsByTagName("input");
 
-    for(i = 0; i < div_ele.length; i++)
-    {
-        if(div_ele[i].value === "Cancel")
-        {
+    for(i = 0; i < div_ele.length; i++) {
+        if(div_ele[i].value === "Cancel") {
             div_ele[i].click();
             break;
         }
