@@ -1,9 +1,3 @@
-function llog(text) {
-    console.log(text);
-}
-
-llog("working")
-
 id = "";
 pass = "";
 
@@ -14,12 +8,8 @@ else do_good_shit();
 function do_bad_shit() {
     div_ele = document.getElementsByTagName("input");
 
-    llog(div_ele.length);
-
     for(i = 0; i < div_ele.length; i++)
     {
-        llog("i was here");
-
         if(div_ele[i].value === "Cancel")
         {
             div_ele[i].click();
@@ -43,36 +33,16 @@ function do_good_shit() {
     add = line.search("add");
     subtract = line.search("subtract");
     first = line.search("first");
-    second = line.search("second");
 
-    function not_empty(s) {
-        return s != "";
-    }
+    v = line.match(/[0-9]*/g).filter(function(s){return s != ""});
+    x = parseInt(v[0]);
+    y = parseInt(v[1]);
 
-    if(add > 0) {
-        llog("add");
-        v = line.match(/[0-9]*/g).filter(not_empty);
-        llog(v);
-        answer = parseInt(v[0]) + parseInt(v[1]);
-    }
-
-    else if(subtract > 0) {
-        llog("sub");
-        v = line.match(/[0-9]*/g).filter(not_empty);
-        llog(v);
-        answer = parseInt(v[0]) - parseInt(v[1]);
-    }
-
-    else {
-        llog("other");
-        v = line.match(/[0-9]*/g).filter(not_empty);
-        llog(v);
-
-        if(first > 0) answer = v[0];
-        else answer = v[1];
-    }
+    if(add > 0) answer = x+y;
+    else if(subtract > 0) answer = x-y;
+    else if(first > 0) answer = x;
+    else answer = y;
 
     document.getElementById("valuepkg3").value = answer;
     document.getElementById("loginbtn").click();
-    llog("done");
 }
