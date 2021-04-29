@@ -17,8 +17,13 @@ function do_bad_shit() {
 }
 
 function do_good_shit() {
-    username.value = id;
-    document.getElementById("password").value = pass;
+    chrome.storage.sync.get(['moodle_username'], function(stored_id) {
+      username.value = stored_id;
+    });
+
+    chrome.storage.sync.get(['moodle_password'], function(stored_password) {
+      document.getElementById("password").value = stored_password;
+    });
 
     form = document.getElementById("login").innerHTML;
     line_s = form.search("Please");
