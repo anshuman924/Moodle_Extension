@@ -1,7 +1,11 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Moodle_Ext",
     "version": "1",
+    "permissions": ["storage"],
+    "action": {
+        "default_popup": "popup/popup.html"
+    },
     "content_scripts": [
         {
             "matches": [

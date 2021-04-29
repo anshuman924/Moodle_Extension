@@ -15,32 +15,43 @@ function do_bad_shit() {
         }
     }
 }
+async function fill_in_the_details () {
 
-function do_good_shit() {
-    username.value = id;
-    document.getElementById("password").value = pass;
+}
+async function do_good_shit() {
+    await (() => {
+        chrome.storage.sync.get(['moodle_username'], function(stored_id) {
+            username.value = stored_id.moodle_username;
+        });
 
-    form = document.getElementById("login").innerHTML;
-    line_s = form.search("Please");
-    line_end = line_s + form.substring(line_s).search("=");
+        chrome.storage.sync.get(['moodle_password'], function(stored_password) {
+            document.getElementById("password").value = stored_password.moodle_password;
+        });
 
-    line = form.substring(line_s, line_end);
+        form = document.getElementById("login").innerHTML;
+        line_s = form.search("Please");
+        line_end = line_s + form.substring(line_s).search("=");
 
-    answer = -1;
+        line = form.substring(line_s, line_end);
 
-    add = line.search("add");
-    subtract = line.search("subtract");
-    first = line.search("first");
+        answer = -1;
 
-    v = line.match(/[0-9]*/g).filter(function(s){return s != ""});
-    x = parseInt(v[0]);
-    y = parseInt(v[1]);
+        add = line.search("add");
+        subtract = line.search("subtract");
+        first = line.search("first");
 
-    if(add > 0) answer = x+y;
-    else if(subtract > 0) answer = x-y;
-    else if(first > 0) answer = x;
-    else answer = y;
+        v = line.match(/[0-9]*/g).filter(function(s){return s != ""});
+        x = parseInt(v[0]);
+        y = parseInt(v[1]);
 
-    document.getElementById("valuepkg3").value = answer;
+        if(add > 0) answer = x+y;
+        else if(subtract > 0) answer = x-y;
+        else if(first > 0) answer = x;
+        else answer = y;
+
+        document.getElementById("valuepkg3").value = answer;
+    })()
+
     document.getElementById("loginbtn").click();
+
 }
