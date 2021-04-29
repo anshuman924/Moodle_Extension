@@ -15,38 +15,43 @@ function do_bad_shit() {
         }
     }
 }
+async function fill_in_the_details () {
 
-function do_good_shit() {
-    chrome.storage.sync.get(['moodle_username'], function(stored_id) {
-        username.value = stored_id.moodle_username;
-    });
+}
+async function do_good_shit() {
+    await (() => {
+        chrome.storage.sync.get(['moodle_username'], function(stored_id) {
+            username.value = stored_id.moodle_username;
+        });
 
-    chrome.storage.sync.get(['moodle_password'], function(stored_password) {
-        document.getElementById("password").value = stored_password.moodle_password;
-    });
+        chrome.storage.sync.get(['moodle_password'], function(stored_password) {
+            document.getElementById("password").value = stored_password.moodle_password;
+        });
 
-    form = document.getElementById("login").innerHTML;
-    line_s = form.search("Please");
-    line_end = line_s + form.substring(line_s).search("=");
+        form = document.getElementById("login").innerHTML;
+        line_s = form.search("Please");
+        line_end = line_s + form.substring(line_s).search("=");
 
-    line = form.substring(line_s, line_end);
+        line = form.substring(line_s, line_end);
 
-    answer = -1;
+        answer = -1;
 
-    add = line.search("add");
-    subtract = line.search("subtract");
-    first = line.search("first");
+        add = line.search("add");
+        subtract = line.search("subtract");
+        first = line.search("first");
 
-    v = line.match(/[0-9]*/g).filter(function(s){return s != ""});
-    x = parseInt(v[0]);
-    y = parseInt(v[1]);
+        v = line.match(/[0-9]*/g).filter(function(s){return s != ""});
+        x = parseInt(v[0]);
+        y = parseInt(v[1]);
 
-    if(add > 0) answer = x+y;
-    else if(subtract > 0) answer = x-y;
-    else if(first > 0) answer = x;
-    else answer = y;
+        if(add > 0) answer = x+y;
+        else if(subtract > 0) answer = x-y;
+        else if(first > 0) answer = x;
+        else answer = y;
 
-    document.getElementById("valuepkg3").value = answer;
-    alert("waiting")
+        document.getElementById("valuepkg3").value = answer;
+    })()
+
     document.getElementById("loginbtn").click();
+
 }
