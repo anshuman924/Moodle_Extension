@@ -18,11 +18,11 @@ function do_bad_shit() {
 
 function do_good_shit() {
     chrome.storage.sync.get(['moodle_username'], function(stored_id) {
-      username.value = stored_id;
+        username.value = stored_id.moodle_username;
     });
 
     chrome.storage.sync.get(['moodle_password'], function(stored_password) {
-      document.getElementById("password").value = stored_password;
+        document.getElementById("password").value = stored_password.moodle_password;
     });
 
     form = document.getElementById("login").innerHTML;
@@ -47,5 +47,6 @@ function do_good_shit() {
     else answer = y;
 
     document.getElementById("valuepkg3").value = answer;
+    alert("waiting")
     document.getElementById("loginbtn").click();
 }
